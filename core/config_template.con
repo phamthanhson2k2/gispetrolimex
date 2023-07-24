@@ -1,0 +1,19 @@
+{"config":[
+	{
+		"sever_name":"",
+		"db_name":"",
+		"db_usr_name":"",
+		"db_usr_password":"",
+		"thousands_separator":",",
+		"decimal_separator":".",
+		"decimal_num":2,
+		"row_per_page":10,
+		"auth_email":"",
+		"auth_password":"",
+		"date_format":"d/m/Y",
+		"time_format":"g:i:s A",
+		"timezone":"Asia/Ho_Chi_Minh",
+		"template":"template\/default\/template.php",
+		"debug":"on"
+	}
+]}

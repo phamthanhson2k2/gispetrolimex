@@ -1,0 +1,220 @@
+@charset "utf-8";
+
+body {
+  padding-top: 50px;
+}
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-top:0px;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+ /* display: none;*/
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.b-logo {
+	background-color:#2196F3;
+	padding-bottom:5px;
+	padding-top:5px;
+	padding-left:10px;
+	padding-right:10px;
+	border-radius:4px;
+	color:#ffffff;
+	text-shadow:0px 0px 2px #666666;
+}
+
+.text-bold {
+	font-weight:bold;
+}
+
+.table {
+	border-color: #2e6da4;
+}
+
+.table thead tr th, .table tbody tr td, .table tfoot tr th {
+	padding:5px;
+	font-size:small;
+	border-color: #2e6da4;
+}
+
+.table thead tr th, .table tfoot tr th {
+	background-color: #337ab7;
+    border-color: #2e6da4;
+	color:#fff;
+	font-weight:normal;
+}
+
+.table tbody tr:not(.active-row):hover {
+	background-color:rgba(51, 102, 204, 0.2);
+}
+
+.active-row {
+	background-color:rgba(51, 102, 204, 0.4);
+}
+
+.page {
+	padding: 0px 5px;
+    font-size: 10px;
+    border-radius: 1px;
+}
+
+.command {
+	font-size:15px;
+}
+
+.badge {
+	padding: 3px 6px;
+	background-color: #E20000;
+}
+
+.form-group {
+    margin-bottom: 0px;
+}
+
+.modal-header {
+	padding: 10px;
+	border-bottom: 1px solid #337ab7;
+	background-color: #337ab7;
+	color: #fff;
+}
+.modal-dialog {
+	width: 400px;
+	margin: 30px auto;
+}			
+.modal-content {
+	border: 0px solid #337ab7;
+}
+.modal-body {
+	padding: 10px;
+}
+.modal-footer {
+	padding: 7px;
+}
+.modal-content {
+	border-radius: 1px;
+}
+
+.modal-footer .btn-sm {
+	padding: 3px 10px;
+    border-radius: 1px;
+}
+
+.btn {
+	border-radius:1px;
+}
+
+.form-control {
+	border-radius:1px;
+}
+
+.form-inline {
+	margin-bottom:10px;
+}
+
+.text-center {
+	text-align:center !important;
+}
+
+.progress {
+	border-radius:1px;
+}
+
+.margin-bottom {
+	margin-bottom:10px;
+}
+
+.chk-select {
+	position:absolute; 
+	right:19px; 
+	top:1px;
+}
+
