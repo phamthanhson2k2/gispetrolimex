@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="<?php echo $PATH ?>font-awesome-4.5.0/css/font-awesome.min.css" />
         <link href="<?php echo $PATH ?>bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="<?php echo $PATH ?>bootstrap-3.3.6-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="<?php echo $PATH ?>fancybox-2.1.5/jquery.fancybox.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="<?php echo $PATH ?>fancybox-2.1.5/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $PATH ?>css/style.css" />
         <link rel="stylesheet" href="template/default/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
         <link href="template/default/css/animate.min.css" rel="stylesheet">
@@ -24,16 +24,6 @@
 		<link rel="stylesheet" href="<?php echo $PATH ?>css/bootstrap-dropdownhover.min.css" type="text/css" media="screen" />
 		<script src="<?php echo $PATH ?>js/bootstrap-dropdownhover.min.js" type="text/javascript"></script>
         <title><?php echo $TITLE ?></title>
-
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossorigin=""/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw-src.css"
-        integrity="sha512-vJfMKRRm4c4UupyPwGUZI8U651mSzbmmPgR3sdE3LcwBPsdGeARvUM5EcSTg34DK8YIRiIo+oJwNfZPMKEQyug=="
-        crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-    
-
     </head>
     
      <!-- Google tag (gtag.js) -->
@@ -73,10 +63,12 @@
             <ul class="nav navbar-nav">
                 <li class="<?php @$_GET["cid"]==''?print('active'):print('') ?>"><a href=""><i class="fa fa-home"></i> Trang chủ</a></li>
                 <li class="<?php @$_GET["cid"]=='1'?print('active'):print('') ?>"><a href="#"><i class="fa fa-info-circle"></i> Giới thiệu</a></li>
-                <li class="<?php @$_GET["cid"]=='2'?print('active'):print('') ?>"><a href="#"><i class="fa fa-file-text"></i> Thống kê</a></li>
+                <li class="<?php @$_GET["cid"]=='2'?print('active'):print('') ?>"><a href="tim-kiem"><i class="fa fa-file-text"></i> Tìm kiếm</a></li>
+                <li class="<?php @$_GET["cid"]=='2'?print('active'):print('') ?>"><a href="thong-ke"><i class="fa fa-file-text"></i> Thống kê</a></li>
+                <li class="<?php @$_GET["cid"]=='2'?print('active'):print('') ?>"><a href="bieu-do"><i class="fa fa-file-text"></i> Biểu đồ</a></li>
             </ul><!--left-->
             <ul class="nav navbar-nav navbar-right">              
-                <li class="<?php @$_GET["cid"]=='4'?print('active'):print('') ?>"><a target="_blank" href="./admin"><i class="fa fa-shopping-cart"></i> Đăng nhập</a></li>
+                <li class="<?php @$_GET["cid"]=='4'?print('active'):print('') ?>"><a target="_blank" href="./admin"><i class="fa fa-user"></i> Đăng nhập</a></li>
             </ul>
         </div><!--/.nav-collapse -->        
       </div>
@@ -91,14 +83,10 @@
 		echo '           
 			<div class="row" style="margin-top:10px;">
                 <div class="container" ><!-- /test  content -->
-                    <div class="col-md-8 col-sm-12 col-xs-12 padding-desktop">
+                    <div class="col-md-12 col-sm-12 col-xs-12 padding-desktop">
                         '.$CONTENT.'
-                    </div>
-                    <div class="col-md-4 col-sm-12 col-xs-12 padding-desktop" >';
-                            router::load_module("recommendation");
-                            router::load_module("news") ;
+                    </div>';
        echo'
-                    </div>
                 </div>
             </div><!-- /end  content -->';
 	}
@@ -106,14 +94,6 @@
 	else
 		echo $CONTENT;
 	?>
-	<!-- FancyBox -->
-		<script type="text/javascript" src="template/default/fancybox-2.1.5/helpers/jquery.fancybox-thumbs.js"></script>
-		<!-- <script type="text/javascript" src="template/default/fancybox-2.1.5/js/fanc.js"></script> -->
-		<!-- <script type="text/javascript" src="template/default/fancybox/js/jquery.easing-1.3.pack.js"></script> -->
-		<script type="text/javascript" src="template/default/fancybox-2.1.5/jquery.fancybox.js"></script>
-		<script type="text/javascript" src="template/default/fancybox-2.1.5/jquery.fancybox.pack.js"></script>
-		<script type="text/javascript" src="template/default/fancybox-2.1.5/helpers/jquery.fancybox-buttons.js"></script>
-		<!-- <script type="text/javascript" src="template/default/fancybox/js/jquery.mousewheel-3.0.6.pack.js"></script> -->
         <script type="text/javascript">
 		$(document).ready(function() {
 			$(".fancybox").fancybox();
@@ -140,7 +120,10 @@
 		<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'vi'}</script>
 		<script type="text/javascript" src="template/default/nivo-slider/jquery.nivo.slider.pack.js"></script>
 		<script type="text/javascript" src="template/default/js/ca-mau-travel.js"></script>
-		<script type="text/javascript" src="template/default/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-		
+<!--
+    <script src="https://portals.petrolimex.com.vn/_js/o_6783dc1271ff449e95b74a9520964169.js?v=1687853461"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqAy3TLYd3KAwyGr8q1hBfNq8fhuje8n8&language=vi"></script>
+    <script src="https://portals.petrolimex.com.vn/_js/d_4913e347a423449e8540354a0cf0b524.js?v=1645524089"></script>
+    -->
 	</body>
 </html>

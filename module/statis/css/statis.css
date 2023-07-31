@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* NỘI DUNG TIN */
+
+
+/*Legend*/ 
+ fieldset.fsStyle {
+    border: 1px dashed #CCC;
+    padding: 5px 5px 5px 5px;
+	margin: 10px;
+    box-shadow: none;
+    border-radius: 5px 5px 5px 5px;
+    position: relative;
+  }
+  
+  fieldset.fsStyle:hover{
+	  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  legend.legendStyle {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  legend.legendStyle {
+    font-size: 90%;
+    color: #888888;
+    background-color: transparent;
+    font-weight: bold;
+  }
+  legend {
+    width: auto;
+    border-bottom: 0px;
+  }
+
+.ct-content-text
+{
+	height:auto;
+	width:100%;
+	margin-top:-20px;
+}
+
+.ct-img
+{
+	height:100%;
+	width:150px;
+	float:left;
+	padding:5px;	
+}
+
+
+.ct-text
+{
+	margin-bottom: 5px !important;
+    padding: 5px;
+    text-align: justify;
+	width:100%;
+	color:#000;
+	opacity:95%;
+}
+
+/* END NỘI DUNG TIN */
+

@@ -1,7 +1,7 @@
 
-var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}',
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     { foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' });
-
+//const osm = new GeoSearch.OpenStreetMapProvider();
 var popup = L.popup();
 
 function onMapClick(e) {
@@ -69,6 +69,32 @@ var map = L.map('map', { center: [10.0338, 105.7867], zoom: 11.5, layers: [osm, 
 var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 // Creating scale control
 var scale = L.control.scale().addTo(map);
+
+L.Control.geocoder().addTo(map);
+
+var geocodeService = L.esri.Geocoding.geocodeService();
+
+  map.on('click', function (e) {
+    geocodeService.reverse().latlng(e.latlng).run(
+        function (error, result) {
+            if (error) {
+                return;
+            }
+            alert(result.latlng)
+        });
+    });
+
+//   var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+
+//   var results = L.layerGroup().addTo(map);
+
+//   searchControl.on('results', function (data) {
+//     results.clearLayers();
+//     for (var i = data.results.length - 1; i >= 0; i--) {
+//       results.addLayer(L.marker(data.results[i].latlng));
+//     }
+//   });
+  
 /*
 L.Routing.osrmv1({
     serviceUrl: "//127.0.0.1:5000/route/v1/driving/105.778280,10.047450;105.735140,10.044330?steps=true"

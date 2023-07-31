@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2023 at 08:55 AM
+-- Generation Time: Jul 21, 2023 at 09:01 AM
 -- Server version: 5.6.26
 -- PHP Version: 5.5.28
 
@@ -62,6 +62,35 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chart_data`
+--
+
+CREATE TABLE IF NOT EXISTS `chart_data` (
+  `id` int(11) NOT NULL,
+  `year` varchar(10) NOT NULL,
+  `month` varchar(50) NOT NULL,
+  `profit` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chart_data`
+--
+
+INSERT INTO `chart_data` (`id`, `year`, `month`, `profit`) VALUES
+(1, '2016', 'January', '50000'),
+(2, '2016', 'February', '45000'),
+(3, '2016', 'March', '60000'),
+(4, '2016', 'April', '52000'),
+(5, '2016', 'May', '67000'),
+(6, '2017', 'January', '32000'),
+(7, '2017', 'February', '58000'),
+(8, '2017', 'March', '46000'),
+(9, '2017', 'April', '64000'),
+(10, '2017', 'May', '38000');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `congty`
 --
 
@@ -82,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `congty` (
 INSERT INTO `congty` (`cty_ma`, `cty_ten`, `cty_diachi`, `cty_sdt`, `cty_email`, `cty_mst`, `cty_logo`) VALUES
 (1, 'Tổng Công Ty Xăng Dầu Việt Nam (Petrolimex)', 'Số 1 Khâm Thiên, Q. Đống Đa, Hà Nội', '02438512603', 'www.petrolimex.com.vn', '123456789', 'logo/petrolimex.jpg'),
 (2, 'Công ty Xăng dầu Khu vực 2', '15 Lê Duẩn, P. Bến Nghé, Q. 1, Tp. Hồ Chí Minh (TPHCM)', '02838292081', 'kv2@petrolimexsg.com.vn', '123456789', 'logo/L1971400.png'),
-(3, 'Công ty cổ phần đầu tư dầu khí NSH', 'Ấp Phú Thạnh, TT Mái Dầm, Huyện Châu Thành, Tỉnh Hậu Giang', '0292 6 547979', 'namsonghau@nshpetro.com', '38564789', 'logo/logo_nsh.png'),
+(3, 'Công ty cổ phần đầu tư dầu khí NSH', 'Ấp Phú Thạnh, TT Mái Dầm, Huyện Châu Thành, Tỉnh Hậu Giang', '02926547979', 'namsonghau@nshpetro.com', '38564789', 'logo/logo_nsh.png'),
 (4, 'Tổng công ty Xăng dầu Quân đội', '33B, Phạm Ngũ Lão, Hoàn Kiếm, Hà Nội', '02437567895', 'http://www.mipecorp.com.vn', '123456789', 'logo/Logo_MIPECORP.png'),
 (5, 'Công ty xăng dầu Bà Rịa - Vũng Tàu', '12 Hoàng Hoa Thám, P. 2, TP. Vũng Tàu, Bà Rịa - Vũng Tàu', '0643832043', 'vungtau@petrolimex.com.vn', '123456789', 'logo/pvolivt.jpg'),
 (6, 'Tổng công ty Dầu Việt Nam - CTCP (PVOIL)', 'Tầng 14-18 Toà nhà PetroVietnam, Số 1-5 Lê Duẩn, Phường Bến Nghé, Quận 1, TP.HCM', '02839106990', 'https://www.pvoil.com.vn/', '123456789', 'logo/logo-pvoil.jpg'),
@@ -11749,6 +11778,12 @@ INSERT INTO `user` (`uid`, `username`, `fullname`, `password`, `email`) VALUES
 --
 
 --
+-- Indexes for table `chart_data`
+--
+ALTER TABLE `chart_data`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `congty`
 --
 ALTER TABLE `congty`
@@ -11825,6 +11860,11 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `chart_data`
+--
+ALTER TABLE `chart_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `congty`
 --

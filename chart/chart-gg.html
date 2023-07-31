@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Tên công ty', 'Petrolimex', 'Orient Oil', 'PetroTime', 'Dầu khí VT', 'PVOil', 'Quân Đội', 'NSH'], 
+		  ['Ninh Kiều',  1, 2, 3, 4, 5, 6, 7], 
+		  ['Cái răng', 	 1, 2, 3, 4, 5, 6, 7], 
+		  ['Bình Thuỷ',  3, 5, 9, 4, 0, 5, 6], 
+		  ['Cờ đỏ', 	 5, 5, 3, 5, 1, 8, 5], 
+		  ['Phong Điền', 4, 6, 5, 6, 9, 2, 7], 
+		  ['Thới Lai',   2, 7, 9, 2, 7, 7, 5], 
+		  ['Ô Môn',      4, 8, 9, 3, 6, 6, 2]
+		  ]);
+        var options = {
+          title : 'Số lượng trạm bán lẻ xăng dầu',
+          vAxis: {title: 'Số lượng'},
+          hAxis: {title: 'Quận/Huyện'},
+          seriesType: 'bars'
+        };
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 1000px; height: 500px;"></div>
+  </body>
+</html>

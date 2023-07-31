@@ -1,0 +1,50 @@
+Options -Indexes
+
+<Files "*.con">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files "*.sql">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files "*.php">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files "*.tpl">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<FilesMatch "(index.php|home.php|gallery-compactsp.php|gallery-compact.php|save-imagesp.php|save-image.php|thumbnail.php|rst-pwd.php)">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+#Note! Do not modify any lines above
+
+RewriteEngine On
+RewriteBase /gispetrolimex/
+
+RewriteRule ^thong-ke(/*)([0-9]*)(/*)([0-9]*)$ index.php?m=statis&hid=$2&cid=$4 [L]
+RewriteRule ^bieu-do(/*)([0-9]*)$ index.php?m=chart&hid=$2[L]
+RewriteRule ^tim-kiem(/*)([0-9]*)$ index.php?m=search&tid=$2 [L]
+
+RewriteRule ^(.+)\.([0-9]+)$ index.php?m=baiviet&aid=$2&cid=2 [L]
+
+
+
+
+
+
+
+
+
+
+
+
+
