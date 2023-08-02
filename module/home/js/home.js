@@ -85,7 +85,13 @@ var geocodeService = L.esri.Geocoding.geocodeService();
     });
 
    var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map);
-
+   const results = L.layerGroup().addTo(map);
+   searchControl.on("results", function (data) {
+        results.clearLayers();
+        for (let i = data.results.length - 1; i >= 0; i--) {
+          results.addLayer(L.marker(data.results[i].latlng));
+        }
+   });
 //   var results = L.layerGroup().addTo(map);
 
 //   searchControl.on('results', function (data) {
