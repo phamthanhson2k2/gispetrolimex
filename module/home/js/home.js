@@ -70,7 +70,7 @@ var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
 // Creating scale control
 var scale = L.control.scale().addTo(map);
 
-L.Control.geocoder().addTo(map);
+//L.Control.geocoder().addTo(map);
 
 var geocodeService = L.esri.Geocoding.geocodeService();
 
@@ -80,11 +80,11 @@ var geocodeService = L.esri.Geocoding.geocodeService();
             if (error) {
                 return;
             }
-            alert(result.latlng)
+            L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
         });
     });
 
-//   var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+   var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map);
 
 //   var results = L.layerGroup().addTo(map);
 
