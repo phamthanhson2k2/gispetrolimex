@@ -1,3 +1,21 @@
+/*Kết nối và load data từ DB*/
+// $(document).ready(function(){
+//         $.ajax({
+//         url:"module/home/getcty.php",
+// 		type: "GET",
+// 		success: function(data) {
+// 			var jsonData = JSON.parse(data);
+// 			for (var i = 0; i < jsonData.length; i++) {
+// 				//var kinhdo = jsonData[i].tbl_kinhdo;
+// 				//var vido = jsonData[i].tbl_vido;
+// 				//$("#data").append("<p>Kinh độ: " + kinhdo + " - Vĩ độ: " + vido + "</p>");
+//                 $("#data").append("<p>Cty: " + jsonData[i].cty_ten + " - Logo: " + jsonData[i].cty_logo + "</p>");
+// 			}
+// 		}
+//     });
+// });
+
+/*End Kết nối và load data từ DB*/
 
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     { foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' });
@@ -85,64 +103,3 @@ var geocodeService = L.esri.Geocoding.geocodeService();
     });
 
    var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map);
-   const results = L.layerGroup().addTo(map);
-   searchControl.on("results", function (data) {
-        results.clearLayers();
-        for (let i = data.results.length - 1; i >= 0; i--) {
-          results.addLayer(L.marker(data.results[i].latlng));
-        }
-   });
-//   var results = L.layerGroup().addTo(map);
-
-//   searchControl.on('results', function (data) {
-//     results.clearLayers();
-//     for (var i = data.results.length - 1; i >= 0; i--) {
-//       results.addLayer(L.marker(data.results[i].latlng));
-//     }
-//   });
-  
-/*
-L.Routing.osrmv1({
-    serviceUrl: "//127.0.0.1:5000/route/v1/driving/105.778280,10.047450;105.735140,10.044330?steps=true"
-});
-*/
-/*
-L.Routing.control({
-    waypoints: [
-        L.latLng(10.04745, 105.77828),
-        L.latLng(10.04433, 105.73514)
-    ],
-    serviceUrl: 'http://router.project-osrm.org/route/v1'
-    //serviceUrl: 'http://localhost:5000/route/v1'
-    //router: L.Routing.osrmv1({
-    //    serviceUrl: 'http://127.0.0.1:5000/route/v1'
-    //})
-}).addTo(map);
-*/
-/*
-drawnItems = L.featureGroup().addTo(map);
-var drawControl = new L.Control.Draw({
-    edit: {
-        featureGroup: drawnItems,
-    },
-});
-
-var getName = function(layer) {
-    var name = prompt('please, enter the geometry name', 'geometry name');
-    return name;
-};
-
-map.addControl(drawControl);
-map.on(L.Draw.Event.CREATED, function(e) {
-    var layer = e.layer; 
-    var name = getName(layer);
-    if (name == 'geometry name') {
-        layer.bindPopup('-- no name provided --');
-    } else if (name == '') {
-        layer.bindPopup('-- no name provided --');
-    } else {
-        layer.bindTooltip(name, {permanent:true, direction:'top'})
-    };
-    drawnItems.addLayer(layer);
-});
-*/
