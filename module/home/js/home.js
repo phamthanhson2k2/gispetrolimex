@@ -17,6 +17,24 @@
 
 /*End Kết nối và load data từ DB*/
 
+/* $(document).ready(function(){
+    $('#cmbCongTy').change(function(){
+        var selectedCty = $(this).val();
+        if(selectedCty != '')
+        {
+            alert(selectedCty);
+        }
+    });
+
+}); */
+
+function change_cb_cty(url) {
+    url=url+'/'+document.getElementById('cmbCongTy').value;
+	//alert(url);
+	window.location= url;
+}
+
+
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     { foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' });
 //const osm = new GeoSearch.OpenStreetMapProvider();
