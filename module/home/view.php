@@ -15,7 +15,7 @@ class HomeView
 	function output()
 	{
 		$html = '';
-		$html .= '
+		$include_scripts .= '
 			<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
      		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw-src.css" integrity="sha512-vJfMKRRm4c4UupyPwGUZI8U651mSzbmmPgR3sdE3LcwBPsdGeARvUM5EcSTg34DK8YIRiIo+oJwNfZPMKEQyug==" crossorigin="anonymous" />
 			<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
@@ -38,9 +38,12 @@ class HomeView
 			<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
 				integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
 				crossorigin=""></script>
-			<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+			<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>';
+			$result_cty = $this->controller->process_get_congty();
+			$cmbview = $result_cty[0];
+			$cty_array = json_encode($result_cty[1]);
 
-				
+			$render_view='
 			<div class="panel panel-content-cont container">
 				<div class="header-content-cont">
 					<h1 style="font-size:18px; margin-top:10px; padding-left:10px;">TRẠM BÁN LẺ</h1>
@@ -51,7 +54,7 @@ class HomeView
 							<label class="form-label">Chọn Công ty</label>				
 						</div>
 						<div class="col-md-6">
-							' . $this->controller->process_get_congty() . '					
+							' .$cmbview. '
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -61,9 +64,59 @@ class HomeView
 					</div>	
 				</div>
 			</div>
-
-			
 			';
+
+			$cid = 0;
+			if(isset($_GET["cid"]))
+				$cid = $_GET["cid"];
+			else
+				$cid = 0;
+
+			$string_script = '<br><script>';
+				$string_script.= '
+				const map = L.map("map").setView([10.0338, 105.7867], 11.5);
+				var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+					attribution: \'&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors\'
+					});
+				
+				osm.addTo(map);
+				var baseMaps = {"Bản đồ nền": osm};
+
+				var layerControl = L.control.layers(baseMaps).addTo(map);
+				// Creating scale control
+				var scale = L.control.scale().addTo(map);
+
+				var geocodeService = L.esri.Geocoding.geocodeService();
+				map.on(\'click\', function (e) {
+				geocodeService.reverse().latlng(e.latlng).run(
+					function (error, result) {
+						if (error) {
+							return;
+						}
+						L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
+					});
+				});
+			
+				var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map); 
+
+				setInterval(function () {
+					map.invalidateSize();
+				}, 100);
+				';
+				
+			if($cid == 0) {
+			}
+
+			$func = '
+			function change_cb_cty(url) {
+				url=url+'/'+document.getElementById(\'cmbCongTy\').value;
+				//alert(url);
+				window.location= url;
+			}
+			';
+			$string_script .= $func.'</script>';
+
+			$html .= $include_scripts.$render_view.$string_script;
 		return $html;
 	}
 }

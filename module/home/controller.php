@@ -21,6 +21,7 @@
 			$html= '<select name="cmbCongTy" class="form-control" id="cmbCongTy" onchange="change_cb_cty('.$url.');" >';
 			$html.= '<option value="0" selected="selected">Tất cả các Công ty cung cấp</option>';				
 			$cat = $this->model->get_congty();
+			$cty_string = '';
 			while($row = mysql_fetch_array($cat))
 			{
 				//$html.= '<option value="'.$row["cty_ma"].'">'.$row["cty_ten"].'</option>';
@@ -28,10 +29,13 @@
 					$html.= '<option value="'.$row["cty_ma"].'" selected="selected">'.$row["cty_ten"].'</option>';
 				else
 					$html.= '<option value="'.$row["cty_ma"].'">'.$row["cty_ten"].'</option>';
+				$cty_string.= $row["cty_ten"];
 			}
 			$html.='</select>';
+
 			
-			return $html;
+			
+			return [$html, $cty_string];
 		}
 		
 		function process_get_cty_trambanle()
