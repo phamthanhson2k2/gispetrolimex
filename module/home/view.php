@@ -11,6 +11,19 @@ class HomeView
 		$this->model = $model;
 		$this->uti = utility::get_instance();
 	}
+	function get_icon($icon_pic){
+		$icon_string = '
+		 new L.Icon({
+			iconUrl: \''.$icon_pic.'\',
+			shadowUrl: \'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png\',
+			iconSize: [41, 41],
+			iconAnchor: [12, 41],
+			popupAnchor: [1, -34],
+			shadowSize: [41, 41]
+		})
+		';
+		return $icon_string;
+	}
 
 	function output()
 	{
@@ -113,28 +126,21 @@ class HomeView
 			setInterval(function () {
 				map.invalidateSize();
 			}, 100);
+
 			';
 				
 			if($cid == 0) {
 			} else {
 				$arr_tbl = $this->controller->get_trambanle_of_congty($cid);
-				$icon = '
-				var pvoilIcon = new L.Icon({
-					iconUrl: \'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png\',
-					shadowUrl: \'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png\',
-					iconSize: [25, 41],
-					iconAnchor: [12, 41],
-					popupAnchor: [1, -34],
-					shadowSize: [41, 41]
-				});
 				
-				';
 				$trambl = 'var petrolStations = L.layerGroup([';
 				$count = 0;
+				$cty_ten = 'Petrolimex';
 				foreach ($arr_tbl as $row) {
 					$count += 1;
+					$cty_ten = $row['cty_ten'];
 					$kinh_vi_do = '['.$row["tbl_kinhdo"].', '.$row["tbl_vido"].']';
-					$trambl.= 'L.marker('.$kinh_vi_do.', { icon: pvoilIcon }).bindTooltip("'.$row["tbl_tentram"].'", { permanent: true, direction:  \'right\' }),';
+					$trambl.= 'L.marker('.$kinh_vi_do.', { icon: '.$this->get_icon($row["cty_logo"]).'}).bindTooltip("'.$row["tbl_tentram"].'", { permanent: true, direction:  \'right\' }),';
 				}
 				if ($count > 0) {
 					$trambl = rtrim($trambl, ',');
@@ -144,14 +150,14 @@ class HomeView
 				}
 				$trambl .= ']);';
 
-				$layers = $icon.$trambl. '
+				$layers = $trambl. '
 				petrolStations.addTo(map);
 				var baseMaps = {
 					"Bản đồ nền": osm
 				};
 
 				var overlayMaps = {
-					"Petrolimex": petrolStations,
+					"'.$cty_ten.'": petrolStations,
 					//"PvOil": pvoilStations
 				};
 
