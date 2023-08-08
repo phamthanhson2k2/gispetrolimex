@@ -50,6 +50,17 @@
 			$html.='</select>';
 			return $html;
 		}
+		function get_trambanle_of_congty($cid){
+			$cat = $this->model->get_trambanle_of_congty($cid);
+			$arr_trambanles = array();
+			while($row = mysql_fetch_array($cat))
+			{
+				//$arr_trambanles.array_push(array($row["cty_ten"], $row["tbl_tentram"], $row["cty_logo"], $row["tbl_kinhdo"], $row["tbl_kinhdo"]));
+				$arr_trambanles[] = $row;
+			}
+			//$arr_trambanles.array_push($cty_string);
+			return $arr_trambanles;
+		}
 		
 	}
 ?>
