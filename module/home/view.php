@@ -110,16 +110,16 @@ class HomeView
 			// Creating scale control
 			var scale = L.control.scale().addTo(map);
 
-			var geocodeService = L.esri.Geocoding.geocodeService();
-			map.on(\'click\', function (e) {
-			geocodeService.reverse().latlng(e.latlng).run(
-				function (error, result) {
-					if (error) {
-						return;
-					}
-					L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
-				});
-			});
+			//var geocodeService = L.esri.Geocoding.geocodeService();
+			// map.on(\'click\', function (e) {
+			// geocodeService.reverse().latlng(e.latlng).run(
+			// 	function (error, result) {
+			// 		if (error) {
+			// 			return;
+			// 		}
+			// 		L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
+			// 	});
+			// });
 		
 			var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map); 
 
@@ -128,8 +128,57 @@ class HomeView
 			}, 100);
 
 			';
-				
+			$layers = '';
 			if($cid == 0) {
+				// all stations of companies
+				$all_tbl = $this->controller->process_get_cty_trambanle();
+				$tbl_count = 0;
+				$cty_ten = '';
+				$trambl = '';
+				$output_tbl = '';
+				$cty_ma = '';
+				$overlay_map = '
+				var overlayMaps = {';
+				foreach ($all_tbl as $row) {
+					if (empty($cty_ten)) {
+						$cty_ma = $row["cty_ma"];
+						$trambl = 'var cty_'.$cty_ma.' = L.layerGroup([';
+						$kinh_vi_do = '['.$row["tbl_kinhdo"].', '.$row["tbl_vido"].']';
+						$trambl.= 'L.marker('.$kinh_vi_do.', { icon: '.$this->get_icon($row["cty_logo"]).'}).bindTooltip("'.$row["tbl_tentram"].'", { permanent: true, direction:  \'right\' }),';
+						$tbl_count = 1;
+					}
+					elseif (strcmp($cty_ten, $row['cty_ten']) != 0){
+						if ($tbl_count > 0) {
+							$trambl = rtrim($trambl, ',');
+						}
+						$trambl .= ']);';
+						$output_tbl .= $trambl. ' cty_'.$cty_ma.'.addTo(map); ';
+						$overlay_map.= '"'.$cty_ten.'": '.'cty_'.$cty_ma.',';
+						// begin new company
+						$cty_ma = $row["cty_ma"];
+						$trambl = 'var cty_'.$cty_ma.' = L.layerGroup([';
+						$kinh_vi_do = '['.$row["tbl_kinhdo"].', '.$row["tbl_vido"].']';
+						$trambl.= 'L.marker('.$kinh_vi_do.', { icon: '.$this->get_icon($row["cty_logo"]).'}).bindTooltip("'.$row["tbl_tentram"].'", { permanent: true, direction:  \'right\' }),';
+						$tbl_count = 1;
+					} else { //stations of the same company
+						$kinh_vi_do = '['.$row["tbl_kinhdo"].', '.$row["tbl_vido"].']';
+						$trambl.= 'L.marker('.$kinh_vi_do.', { icon: '.$this->get_icon($row["cty_logo"]).'}).bindTooltip("'.$row["tbl_tentram"].'", { permanent: true, direction:  \'right\' }),';
+						$tbl_count += 1;
+					}
+					$cty_ten = $row['cty_ten'];
+				}
+				if ($tbl_count > 0) {
+					$trambl = rtrim($trambl, ',');
+				}
+				$trambl .= ']);';
+				$output_tbl .= $trambl. '  cty_'.$cty_ma.'.addTo(map); ';
+				$overlay_map .= '"'.$cty_ten.'": '.'cty_'.$cty_ma.',';
+				$overlay_map .='};';
+				$base_map = '
+					var baseMaps = {
+						"Bản đồ nền": osm
+					};';
+				$layers .= $output_tbl.$base_map.$overlay_map.'L.control.layers(baseMaps, overlayMaps).addTo(map);';
 			} else {
 				$arr_tbl = $this->controller->get_trambanle_of_congty($cid);
 				

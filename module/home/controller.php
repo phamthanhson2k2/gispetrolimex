@@ -40,16 +40,15 @@
 		
 		function process_get_cty_trambanle()
 		{
-			$html='<select name="cmbCongTyTBL" class="form-control" id="cmbCongTyTBL">';
-			$html.= '<option value="0" selected="selected">Tất cả các Công ty TBL</option>';
+			$arr_trambanles = array();
 			$cat = $this->model->get_cty_trambanle();
 			while($row = mysql_fetch_array($cat))
 			{
-				$html.= '<option value="'.$row["cty_ma"].'">'.$row["cty_ten"].'</option>';
+				$arr_trambanles[] = $row;
 			}
-			$html.='</select>';
-			return $html;
+			return $arr_trambanles;
 		}
+		
 		function get_trambanle_of_congty($cid){
 			$cat = $this->model->get_trambanle_of_congty($cid);
 			$arr_trambanles = array();
