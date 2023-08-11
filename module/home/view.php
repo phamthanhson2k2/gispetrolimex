@@ -16,9 +16,9 @@ class HomeView
 		 new L.Icon({
 			iconUrl: \''.$icon_pic.'\',
 			shadowUrl: \'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png\',
-			iconSize: [41, 41],
-			iconAnchor: [12, 41],
-			popupAnchor: [1, -34],
+			iconSize: [32, 32],
+			iconAnchor: [32, 16],
+			popupAnchor: [-3, -76],
 			shadowSize: [41, 41]
 		})
 		';
@@ -52,14 +52,10 @@ class HomeView
 				integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
 				crossorigin=""></script>
 			<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
-			
-			
-
 			';
 			
 			$result_cty = $this->controller->process_get_congty();
 			$cmbview = $result_cty[0];
-			$cty_array = json_encode($result_cty[1]);
 
 			$func = '<script>
 				function change_cb_cty(url) {
@@ -104,9 +100,7 @@ class HomeView
 				});
 			
 			osm.addTo(map);
-			//var baseMaps = {"Bản đồ nền": osm};
 
-			//var layerControl = L.control.layers(baseMaps).addTo(map);
 			// Creating scale control
 			var scale = L.control.scale().addTo(map);
 
@@ -120,9 +114,7 @@ class HomeView
 			// 		L.marker(result.latlng).addTo(map).bindPopup(result.address.Match_addr).openPopup();
 			// 	});
 			// });
-		
-			var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map); 
-
+			
 			setInterval(function () {
 				map.invalidateSize();
 			}, 100);
@@ -193,7 +185,6 @@ class HomeView
 				}
 				if ($count > 0) {
 					$trambl = rtrim($trambl, ',');
-					//$string_script.= 'alert('. $count.');';
 				} else {
 
 				}
@@ -212,12 +203,18 @@ class HomeView
 
 				L.control.layers(baseMaps, overlayMaps).addTo(map);
 				';
-
-				//$tbl = json_encode($arr_tbl);
-				//$string_script.= "alert(".$tbl.")";
 			}
-
-			$string_script .= $layers.'</script>';
+			$search = '
+			var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map); 
+			var results = L.layerGroup().addTo(map);
+			searchControl.on("results", function (data) {
+				results.clearLayers();
+				for (var i = data.results.length - 1; i >= 0; i--) {
+				  results.addLayer(L.marker(data.results[i].latlng));
+				}
+			  })
+			';
+			$string_script .= $layers.$search.'</script>';
 
 			$html .= $include_scripts.$render_view.$string_script;
 		return $html;
