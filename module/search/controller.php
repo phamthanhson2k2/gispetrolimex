@@ -12,6 +12,7 @@
 			$this->paging = "";
 		}
 		
+		/*
 		function process_get_huyen()
 		{
 			if(isset($_GET["hid"])&& is_numeric($_GET["hid"]))
@@ -64,7 +65,7 @@
 			$html.='</select>';
 			
 			return $html;
-		}
+		}*/
 		
 		function process_get_table()
 		{
@@ -93,7 +94,7 @@
 			$html .= '<tr>
 					  <th class="text-center" style="width:50px">#</th>
 					  <th>Loại xăng dầu</th>
-					  <th class="text-center" style="width:350px">ĐVT</th>
+					  <th class="text-center" style="width:100px">ĐVT</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -116,6 +117,18 @@
 				</div>
 			';
 			return $html;	
+		}
+		
+		function process_get_trambanle_load_to_map($tid)
+		{
+			$tid = isset($_GET['tid']) && is_numeric($_GET['tid'])?$_GET['tid']:0;
+			$arr_trambanles = array();
+			$cat = $this->model->get_thong_tin_tram_ban_le($tid);
+			while($row = mysql_fetch_array($cat))
+			{
+				$arr_trambanles[] = $row;
+			}
+			return $arr_trambanles;
 		}
 	}
 ?>

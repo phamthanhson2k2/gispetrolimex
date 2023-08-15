@@ -1,6 +1,0 @@
-SELECT  ct.cty_ma, cty_ten, tbl_tentram, lxd.lxd_maloai, lxd_tenloai, lxd_donvitinh, tbl_kinhdo, tbl_vido
-FROM 	congty ct, trambanle tbl, loaixangdau lxd, trambanle_loaixangdau tl
-WHERE	ct.cty_ma = tbl.cty_ma 
-AND 	tbl.tbl_matram = tl.tbl_matram
-AND 	lxd.lxd_maloai = tl.lxd_maloai 
-AND 	ct.cty_ma = 1
