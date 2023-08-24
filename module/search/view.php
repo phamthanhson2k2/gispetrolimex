@@ -85,6 +85,9 @@
 			';
 			
 			$layers = '';
+			$kdo = 0;
+			$vdo = 0;
+
 			if($tid == 0) {
 				// all stations of companies
 				$all_tbl = $this->controller->process_get_trambanle_load_to_map($tid);
@@ -93,9 +96,11 @@
 				$trambl = '';
 				$output_tbl = '';
 				$cty_ma = '';
+				$tram_count = 0;
 				$overlay_map = '
 				var overlayMaps = {';
 				foreach ($all_tbl as $row) {
+					$tram_count += 1;
 					if (empty($cty_ten)) {
 						$cty_ma = $row["cty_ma"];
 						$trambl = 'var cty_'.$cty_ma.' = L.layerGroup([';
@@ -121,6 +126,8 @@
 						$trambl.= 'L.marker('.$kinh_vi_do.', { icon: '.$this->get_icon($row["cty_logo"]).'}).bindTooltip("'.$row["tbl_tentram"].'", { permanent: true, direction:  \'right\' }),';
 						$tbl_count += 1;
 					}
+					$kdo = $row["tbl_kinhdo"];
+					$vdo = $row["tbl_vido"];
 					$cty_ten = $row['cty_ten'];
 				}
 				if ($tbl_count > 0) {
@@ -144,6 +151,8 @@
 				foreach ($arr_tbl as $row) {
 					$count += 1;
 					$cty_ten = $row['cty_ten'];
+					$kdo = $row["tbl_kinhdo"];
+					$vdo = $row["tbl_vido"];
 					$kinh_vi_do = '['.$row["tbl_kinhdo"].', '.$row["tbl_vido"].']';
 					$trambl.= 'L.marker('.$kinh_vi_do.', { icon: '.$this->get_icon($row["cty_logo"]).'}).bindTooltip("'.$row["tbl_tentram"].'", { permanent: true, direction:  \'right\' }),';
 				}
@@ -166,8 +175,46 @@
 				};
 
 				L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+				
 				';
 			}
+			$routing = '
+				var c_kdo = 0;
+				var c_vdo = 0;
+				function onLocationFound(e) {
+					var radius = e.accuracy;
+					c_kdo = e.latlng.lat;
+					c_vdo = e.latlng.lng;
+					L.Routing.control({
+						waypoints: [
+							L.latLng(c_kdo, c_vdo),
+							L.latLng('.$kdo.', '.$vdo.')
+						],
+						serviceUrl: "http://router.project-osrm.org/route/v1",
+						//showAlternatives: true,
+  						//autoRoute: true,
+						routeWhileDragging: false
+	
+					}).addTo(map);
+					var src = new L.LatLng(c_kdo, c_vdo),
+						dst = new L.LatLng('.$kdo.', '.$vdo.'),
+						bounds = new L.LatLngBounds(src, dst);
+					map.fitBounds(bounds, {padding: [50, 50]});
+				}';
+				
+			if ($tram_count == 1) {
+				$routing .='map.locate({setView: true, watch: true, maxZoom: 17});';
+			}
+			$routing .=' map.on(\'locationfound\', onLocationFound);
+				
+				function onLocationError(e) {
+					alert(e.message);
+				}
+				
+				map.on(\'locationerror\', onLocationError);
+
+			';
 			$search = '
 			var searchControl = L.esri.Geocoding.geosearch({position: "topright"}).addTo(map); 
 			var results = L.layerGroup().addTo(map);
@@ -178,7 +225,7 @@
 				}
 			  })
 			';
-			$string_script .= $layers.$search.'</script>';
+			$string_script .= $layers.$routing.$search.'</script>';
 
 			
 			
