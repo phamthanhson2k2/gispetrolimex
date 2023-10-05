@@ -62,7 +62,6 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="<?php @$_GET["cid"]==''?print('active'):print('') ?>"><a href=""><i class="fa fa-home"></i> Trang chủ</a></li>
-                <li class="<?php @$_GET["cid"]=='1'?print('active'):print('') ?>"><a href="#"><i class="fa fa-info-circle"></i> Giới thiệu</a></li>
                 <li class="<?php @$_GET["cid"]=='2'?print('active'):print('') ?>"><a href="tim-kiem"><i class="fa fa-file-text"></i> Tìm kiếm</a></li>
                 <li class="<?php @$_GET["cid"]=='2'?print('active'):print('') ?>"><a href="thong-ke"><i class="fa fa-file-text"></i> Thống kê</a></li>
                 <li class="<?php @$_GET["cid"]=='2'?print('active'):print('') ?>"><a href="bieu-do"><i class="fa fa-file-text"></i> Biểu đồ</a></li>

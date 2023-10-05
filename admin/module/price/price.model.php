@@ -117,9 +117,9 @@
 									</select>
 								</div>
 								<div class="form-group col-md-6">
-									<label class="control-label">Ngày bán</label>
+									<label class="control-label">Ngày áp giá bán</label>
 									<div class=" input-group date form_date" data-date="" data-date-format="dd-mm-yyyy H:i:s" data-link-field="dtp_input2" data-link-format="">
-										<input class="form-control" size="16" type="text"  id="txt-ngayban" name="dtpinput2" value="" readonly>
+										<input class="form-control" size="16" type="text"  id="txt-ngayban" name="dtpinput2" value="">
 										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 										<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 									</div>

@@ -42,5 +42,19 @@
 			$query .= " ORDER BY lxd_tenloai ASC";
 			return $this->db_helper->execute($query, 0);	
 		}
+		
+		function count_loai_xang_dau_cua_tram_ban_le()
+		{
+			$tid = isset($_GET['tid']) && is_numeric($_GET['tid'])?$_GET['tid']:0;
+			$query = "SELECT  count(lxd_tenloai)
+					  FROM 	  congty ct, trambanle tbl, loaixangdau lxd, trambanle_loaixangdau tl
+					  WHERE	  ct.cty_ma = tbl.cty_ma 
+					  AND 	  tbl.tbl_matram = tl.tbl_matram
+					  AND 	  lxd.lxd_maloai = tl.lxd_maloai";
+			if($tid > 0)
+				$query .= " AND tbl.tbl_matram = $tid";	
+			$query .= " ORDER BY lxd_tenloai ASC";
+			return $this->db_helper->execute($query, 1);	
+		}
 	}
 ?>

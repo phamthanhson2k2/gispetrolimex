@@ -1,0 +1,127 @@
+<?php  
+
+//index.php
+
+include("database_conection.php");
+
+$query = "SELECT year FROM chart_data GROUP BY year DESC";
+
+$statement = $connect->prepare($query);
+
+$statement->execute();
+
+$result = $statement->fetchAll();
+
+?>  
+<!DOCTYPE html>  
+<html>  
+    <head>  
+        <title>Create Dynamic Column Chart using PHP Ajax with Google Charts</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
+    </head>  
+    <body> 
+        <br /><br />
+        <div class="container">  
+            <h3 align="center">Create Dynamic Column Chart using PHP Ajax with Google Charts</h3>  
+            <br />  
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h3 class="panel-title">Month Wise Profit Data</h3>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="year" class="form-control" id="year">
+                                <option value="">Select Year</option>
+                            <?php
+                            foreach($result as $row)
+                            {
+                                echo '<option value="'.$row["year"].'">'.$row["year"].'</option>';
+                            }
+                            ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="chart_area" style="width: 1000px; height: 620px;"></div>
+                </div>
+            </div>
+        </div>  
+    </body>  
+</html>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+/*
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback();*/
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback();
+function drawMonthwiseChart(chart_data, chart_main_title)
+{
+    
+	var jsonData = chart_data;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Month');
+    data.addColumn('number', 'Profit');
+    $.each(jsonData, function(i, jsonData){
+        var month = jsonData.month;
+        var profit = parseFloat($.trim(jsonData.profit));
+        data.addRows([[month, profit]]);
+    });
+	/*var data = google.visualization.arrayToDataTable([
+          ['Tên công ty', 'Petrolimex', 'Orient Oil', 'PetroTime', 'Dầu khí VT', 'PVOil', 'Quân Đội', 'NSH'], 
+		  ['Ninh Kiều',  1, 2, 3, 4, 5, 6, 7], 
+		  ['Cái răng', 	 1, 2, 3, 4, 5, 6, 7], 
+		  ['Bình Thuỷ',  3, 5, 9, 4, 0, 5, 6], 
+		  ['Cờ đỏ', 	 5, 5, 3, 5, 1, 8, 5], 
+		  ['Phong Điền', 4, 6, 5, 6, 9, 2, 7], 
+		  ['Thới Lai',   2, 7, 9, 2, 7, 7, 5], 
+		  ['Ô Môn',      4, 8, 9, 3, 6, 6, 2]
+		  ]);*/
+    var options = {
+        title:chart_main_title,
+        hAxis: {title: "Months"},
+        vAxis: {title: 'Profit'},
+		seriesType: 'bars'
+    };
+    <!--var chart = new google.visualization.ColumnChart(document.getElementById('chart_area'));-->
+	var chart = new google.visualization.ComboChart(document.getElementById('chart_area'));
+    chart.draw(data, options);
+}
+
+function load_monthwise_data(year, title)
+{
+    var temp_title = title + ' '+year+'';
+    $.ajax({
+        url:"fetch.php",
+        method:"POST",
+        data:{year:year},
+        dataType:"JSON",
+        success:function(data)
+        {
+            drawMonthwiseChart(data, temp_title);
+        }
+    });
+}
+
+</script>
+
+<script>
+    
+$(document).ready(function(){
+
+    $('#year').change(function(){
+        var year = $(this).val();
+        if(year != '')
+        {
+            load_monthwise_data(year, 'Month Wise Profit Data For');
+        }
+    });
+
+});
+
+</script>

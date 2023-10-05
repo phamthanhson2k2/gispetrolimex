@@ -126,31 +126,50 @@
 									<option value="0">Chọn Xã/Phường/Thị trấn</option>
 								</select>
 							</div>
-							
-							
-							<div class="form-group col-md-8 col-sm-12 col-xs-12">
-								<label>Địa chỉ </label>
-								<input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ để lấy Kinh độ/Vĩ độ">
-							</div>
-							<div class="form-group col-md-2 col-sm-12 col-xs-12">
-								<label class="control-label">Kinh độ </label>
-								<input type="text" class="form-control" id="latitude" name="txtKinhDo" value="'.$kinhdo.'">
-							</div>
-							<div class="form-group col-md-2 col-sm-12 col-xs-12">
+
+							<div class="form-group col-md-6 col-sm-12 col-xs-12">
 								<label class="control-label">Vĩ độ </label>
-								<input type="text" class="form-control" id="longitude" name="txtViDo" value="'.$vido.'">
+								<input type="text" class="form-control" id="latitude" name="txtViDo" value="'.$vido.'" readonly>
+							</div>
+							<div class="form-group col-md-6 col-sm-12 col-xs-12">
+								<label class="control-label">Kinh độ </label>
+								<input type="text" class="form-control" id="longitude" name="txtKinhDo" value="'.$kinhdo.'" readonly>
 							</div>
 							<input type="hidden" name="txtTid" value="'.$tid.'">
 						</form>
 				
-						<div class="form-group col-md-12 col-sm-12 col-xs-12">
-						</br>
-							<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62860.62287776513!2d105.71637030261547!3d10.034268929018438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0629f6de3edb7%3A0x527f09dbfb20b659!2zQ-G6p24gVGjGoSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1688977299643!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						<div class="form-group col-md-12 col-sm-12 col-xs-12"></br>							
+							<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+     						<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw-src.css" integrity="sha512-vJfMKRRm4c4UupyPwGUZI8U651mSzbmmPgR3sdE3LcwBPsdGeARvUM5EcSTg34DK8YIRiIo+oJwNfZPMKEQyug==" crossorigin="anonymous" />
+							<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css" />
+							<link href="module/station/css/station.css" rel="stylesheet">
+			
+							<div id="map"></div>
+			
+						<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
+    					<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+						<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+						<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+						<!-- Load Esri Leaflet from CDN -->
+					 	<script src="https://unpkg.com/esri-leaflet@2.4.1/dist/esri-leaflet.js"
+					  integrity="sha512-xY2smLIHKirD03vHKDJ2u4pqeHA7OQZZ27EjtqmuhDguxiUvdsOuXMwkg16PQrm9cgTmXtoxA6kwr8KBy3cdcw=="
+					  crossorigin=""></script>
+					
+					  	<!-- Load Esri Leaflet Geocoder from CDN -->
+					 	<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
+						integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+						crossorigin="">
+					  	<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
+						integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
+						crossorigin=""></script>
+						 
+						<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>	
 						</div>
 					</div>
 				</div>
 			</div><!--/.col-->
-			
+
 			<div class="col-md-3 col-sm-12">			
 				<div class="panel panel-default">
 					<div class="panel-heading"><i class="fa fa-th"></i><b> Chọn Công ty cung cấp</b></div>

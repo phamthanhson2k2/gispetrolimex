@@ -10,12 +10,6 @@
 			$this->row_per_page = config::get_instance()->get_row_per_page();
 		}
 		
-		function count_node()
-		{
-			$qr = "SELECT COUNT(*) FROM article a, art_cat b WHERE a.aid = b.aid AND visible=1";
-			return $this->db_helper->execute($qr, 1);
-		}
-		
 		function get_cty()
 		{
 			$congty = "SELECT cty_ma, cty_ten FROM congty ORDER BY cty_ten ASC";
@@ -31,10 +25,18 @@
 		function get_huyen_view()
 		{
 			$hid = isset($_GET['hid']) && is_numeric($_GET['hid'])?$_GET['hid']:0;
-			$query = "SELECT maqh, name FROM devvn_quanhuyen WHERE matp = 92";
+			//$query = "SELECT maqh, name FROM devvn_quanhuyen WHERE matp = 92";
+			$query = "SELECT 	 count(*) as SoLuong, h.name, h.maqh
+				FROM 	 trambanle t, congty ct, devvn_xaphuongthitran x, devvn_quanhuyen h , devvn_tinhthanhpho tt
+				WHERE	 t.cty_ma = ct.cty_ma
+				AND	 	 t.tbl_xaid = x.xaid 
+				AND	     x.maqh = h.maqh
+				AND 	 h.matp = tt.matp
+				AND 	 h.matp = 92";
 			if($hid > 0)
-				$query .= " AND maqh = $hid";	
-			$query .= " ORDER BY name ASC";
+				$query .= " AND h.maqh = $hid";	
+			$query .= " GROUP BY h.name
+						ORDER BY SoLuong DESC";
 			return $this->db_helper->execute($query, 0);
 		}
 		
@@ -63,7 +65,7 @@
 			    AND	 	 t.tbl_xaid = x.xaid 
 			    AND	     x.maqh = h.maqh
 			    AND 	 h.matp = tt.matp
-				AND h.maqh = $hid";
+				AND 	 h.maqh = $hid";
 			if($cid > 0)
 				$query .= " AND t.cty_ma = $cid";	
 			$query .= " ORDER BY tbl_tentram ASC";

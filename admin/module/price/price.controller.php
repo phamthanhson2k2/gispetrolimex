@@ -27,21 +27,42 @@
 			
 			$date = strtotime($ngayban);
 			$date = date('Y-m-d H:i:s', $date);
+			$kiemtrangay = date('Y-m-d H:i:s');
 			
-			if(isset($giaban) && !empty($giaban)){
-				if($this->model->add_thoidiem($date, $cty, $loai, $giaban)>0){
-				$msg = '<div class="alert alert-success alert-dismissible" role="alert">
-						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						  Thêm mới giá bán thành công!
-						</div>';
-				}else{
-				$msg = '<div class="alert alert-danger alert-dismissible" role="alert">
-						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						  Thêm mới giá bán không thành công, vui lòng thử lại sau!
-						</div>';
+			if(isset($giaban) && !empty($giaban))
+			{
+				if(($date >= $kiemtrangay) && ($giaban > 0))
+				{
+					if($this->model->add_thoidiem($date, $cty, $loai, $giaban)>0)
+					{
+						$msg = '<div class="alert alert-success alert-dismissible" role="alert">
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  Thêm mới giá bán thành công!
+							</div>';
+					}
+					else
+					{
+						$msg = '<div class="alert alert-danger alert-dismissible" role="alert">
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  Thêm mới giá bán không thành công, vui lòng thử lại sau!
+							</div>';
+					}
+				}
+				else if($date < $kiemtrangay)
+				{
+					$msg = '<div class="alert alert-danger alert-dismissible" role="alert">
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  Ngày áp giá bán không hợp lệ, vui lòng thử lại sau!
+							</div>';
+				}
+				else
+				{
+					$msg = '<div class="alert alert-danger alert-dismissible" role="alert">
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  Giá bán không hợp lệ, vui lòng thử lại sau!
+							</div>';
 				}
 			}
-			
 			
 			$this->html = $this->model->get_list($msg);
 		}
