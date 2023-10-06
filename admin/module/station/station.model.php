@@ -172,7 +172,7 @@ crossorigin=""></script>
 
 			<div class="col-md-3 col-sm-12">			
 				<div class="panel panel-default">
-					<div class="panel-heading"><i class="fa fa-th"></i><b> Chọn Công ty cung cấp</b></div>
+					<div class="panel-heading"><i class="fa fa-th"></i><b> Chọn Công ty đầu mối</b></div>
 					<div class="panel-body">'.$this->get_categories($cty_ma).'</div>
 					<div class="panel-footer"><button type="submit" class="btn btn-primary" form="edit-art">Lưu</button></div>
 				</div><!--/.panel category-->
